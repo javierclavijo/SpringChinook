@@ -20,6 +20,10 @@ public class InvoiceLine {
     @JoinColumn(name = "InvoiceId")
     private Invoice invoice;
 
+    @ManyToOne
+    @JoinColumn(name = "TrackId")
+    private Track track;
+
     @Column(name = "UnitPrice", length = 10, precision = 2)
     private Double unitPrice;
 

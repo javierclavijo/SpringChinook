@@ -9,17 +9,22 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Genre {
+public class Playlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "GenreId")
+    @Column(name = "PlaylistId")
     private Integer id;
 
     @Column(name = "Name", length = 120)
     private String name;
 
-    @OneToMany(mappedBy = "genre")
+    @ManyToMany
+    @JoinTable(
+            name = "PlaylistTrack",
+            joinColumns = @JoinColumn(name = "PlaylistId", referencedColumnName = "PlaylistId"),
+            inverseJoinColumns = @JoinColumn(name = "TrackId", referencedColumnName = "TrackId")
+    )
     private List<Track> tracks;
 
 }

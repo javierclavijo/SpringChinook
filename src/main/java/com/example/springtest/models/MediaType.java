@@ -9,16 +9,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Artist {
+public class MediaType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ArtistId")
+    @Column(name = "MediaTypeId")
     private Integer id;
 
     @Column(name = "Name", length = 120)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artist")
-    private List<Album> albums;
+    @OneToMany(mappedBy = "mediaType")
+    private List<Track> tracks;
+
 }
