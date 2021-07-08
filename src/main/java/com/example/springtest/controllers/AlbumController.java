@@ -3,9 +3,12 @@ package com.example.springtest.controllers;
 import com.example.springtest.models.Album;
 import com.example.springtest.repositories.AlbumRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -30,8 +33,16 @@ public class AlbumController {
     // end::get-aggregate-root[]
 
     @GetMapping("/{id}")
-    public Optional<Album> one(@PathVariable("id") Integer id) {
-        return repository.findById(id);
+    public Album one(@PathVariable("id") Integer id) {
+        try {
+            Optional<Album> album = repository.findById(id);
+            if (album.isEmpty()) {
+                throw new NoSuchElementException();
+            } else {
+                return album.get();
+            }
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Album not found");
+        }
     }
-
 }
