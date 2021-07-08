@@ -1,5 +1,6 @@
 package com.example.springtest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +44,8 @@ public class Invoice {
     @Column(name = "Total", length = 10, precision = 2)
     private Double total;
 
-    @OneToMany(mappedBy = "invoice")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
     private List<InvoiceLine> invoiceLines;
 
 }

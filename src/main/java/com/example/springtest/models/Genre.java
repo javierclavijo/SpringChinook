@@ -1,5 +1,6 @@
 package com.example.springtest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,8 @@ public class Genre {
     @Column(name = "Name", length = 120)
     private String name;
 
-    @OneToMany(mappedBy = "genre")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
     private List<Track> tracks;
 
 }

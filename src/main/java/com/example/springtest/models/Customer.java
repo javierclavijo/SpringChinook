@@ -1,5 +1,6 @@
 package com.example.springtest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +27,8 @@ public class Customer {
     @JoinColumn(name = "SupportRepId")
     private Employee supportRep;
 
-    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Invoice> invoices;
 
 }

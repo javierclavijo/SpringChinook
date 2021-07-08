@@ -1,5 +1,6 @@
 package com.example.springtest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,7 @@ public class Employee {
     @Temporal(TemporalType.TIMESTAMP)
     private Date hireDate;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "supportRep")
     private List<Customer> customers;
 
@@ -35,6 +37,7 @@ public class Employee {
     @JoinColumn(name = "ReportsTo")
     private Employee reportsTo;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reportsTo")
     private List<Employee> employees;
 }
